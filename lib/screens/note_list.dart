@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notekeeperapp/screens/note_description.dart';
 
 class NoteList extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _NoteListState extends State<NoteList> {
         child: Icon(Icons.add),
         onPressed: (){
           debugPrint('add note pressed');
+          gotoNoteDescription('Add Note');
         },
       ),
     );
@@ -43,9 +45,14 @@ class _NoteListState extends State<NoteList> {
               subtitle: Text('dummy subtitle'),
               onTap: (){
                 debugPrint('ontap pressed');
+                gotoNoteDescription('Edit Note');
               },
             ),
           );
         } );
   }
+  void gotoNoteDescription(String title){
+    Navigator.push(context,MaterialPageRoute(builder: (context)=> NoteDesc(title)));
+  }
 }
+

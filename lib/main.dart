@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
 
       ),
-      home: NoteDesc(),
+      home: NoteList(),
     );
   }
 }

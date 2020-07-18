@@ -2,20 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NoteDesc extends StatefulWidget {
+  final String appBarTitle;
+  NoteDesc(this.appBarTitle);
   @override
-  _NoteDescState createState() => _NoteDescState();
+  _NoteDescState createState() => _NoteDescState(this.appBarTitle);
 }
 
 class _NoteDescState extends State<NoteDesc> {
   static var _priority = ['High','Low'];
-  TextEditingController titlecontroller = TextEditingController();
-  TextEditingController descriptioncontroller = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  String appBarTitle;
+  _NoteDescState(this.appBarTitle);
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Note'),
+        title: Text(appBarTitle),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -25,10 +29,10 @@ class _NoteDescState extends State<NoteDesc> {
           children: <Widget>[
             DropdownButton(
               iconSize: 40,
-              items: _priority.map((String stringitem){
+              items: _priority.map((String stringItem){
                 return DropdownMenuItem(
-                  value: stringitem,
-                  child: Text(stringitem,style: TextStyle(fontWeight: FontWeight.bold),),
+                  value: stringItem,
+                  child: Text(stringItem,style: TextStyle(fontWeight: FontWeight.bold),),
                 );
               }).toList(),
               value: 'Low',
@@ -40,7 +44,7 @@ class _NoteDescState extends State<NoteDesc> {
             ),
             SizedBox(height: 10.0,),
             TextField(
-              controller: titlecontroller,
+              controller: titleController,
               decoration: InputDecoration(
                 labelStyle: textStyle,
                 labelText: 'Title',
@@ -50,10 +54,10 @@ class _NoteDescState extends State<NoteDesc> {
             ),
             SizedBox(height: 15.0,),
             TextField(
-              controller: descriptioncontroller,
+              controller: descriptionController,
               decoration: InputDecoration(
                   labelStyle: textStyle,
-                  labelText: 'Title',
+                  labelText: 'Description',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5))
               ),

@@ -4,18 +4,17 @@ import 'dart:io';
 import 'package:notekeeperapp/models/note.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-
 class DatabaseHelper{
-  static DatabaseHelper _databaseHelper;
-  Database _database;
+  static DatabaseHelper _databaseHelper ;
+  static Database _database;
 
   // GOTTA CHECK THIS AFTERWARDS
-  String noteTable;
-  int colId;
-  String colTitle;
-  String colDesc;
-  String colDate;
-  int colPriority;
+  String noteTable='tablename';
+  String colId='id';
+  String colTitle='title';
+  String colDesc='desc';
+  String colDate='date';
+  String colPriority='priority';
 
 
   DatabaseHelper._createInstance();
@@ -29,7 +28,7 @@ class DatabaseHelper{
 
   Future <Database> get database async {
     if(_database==null){
-      await initializeDb();
+      _database = await initializeDb();
     }
     return _database;
   }
@@ -43,32 +42,32 @@ class DatabaseHelper{
   }
 
   void _createDb(Database db,int version) async {
-    await db.execute('CREATE TABLE $noteTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, $colDesc TEXT,$colDate TEXT,$colPriority INTEGER)', );
+    await db.execute('CREATE TABLE $noteTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, $colDesc TEXT,$colDate TEXT,$colPriority INTEGER)');
   }
 
   //fetch
 
   Future <List<Map<String,dynamic>>>getNotesMapList() async {
-    Database db = await database;
+    Database db = await this.database;
     var result = await db.query(noteTable,orderBy: '$colPriority DESC');
     return result;
   }
   //insert
   Future insertNote(Note note) async {
-    Database db = await database;
+    Database db = await this.database;
     var result = db.insert(noteTable, note.toMap());
     return result;
   }
   //delete
   //delete function might be weird//
-  Future<int> deleteNote(Note note) async {
-    Database db = await database;
-    var result = await db.delete(noteTable,where: '$colId=note.id');
+  Future<int> deleteNote(int id) async {
+    Database db = await this.database;
+    var result = await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
     return result;
   }
   //update
   Future<int> updateNote(Note note) async {
-    Database db = await database;
+    Database db = await this.database;
     var result = await db.update(noteTable, note.toMap(),where: '$colId=?',whereArgs: [note.id]);
     return result;
   }
@@ -77,9 +76,21 @@ class DatabaseHelper{
   // self made count function(might br wrong)
   Future countNote() async {
     //change to int from List<Map<S,d>>//
-    Database db = await database;
+    Database db = await this.database;
     var result = await db.rawQuery('SELECT COUNT($colId) FROM $noteTable');
     return result;
   }
+
+
+  Future getNoteList() async {
+    var mapList = await getNotesMapList();
+    var _noteList = List<Note>() ;
+    int len=mapList.length;
+    for(int i=0;i<len;i++){
+      _noteList.add(Note.fromMap(mapList[i]));
+    }
+    return _noteList;
+  }
+
 
 }

@@ -5,7 +5,7 @@ class Note {
   String _date;
   int _priority;
 
-  Note(this._title,this._date,this._priority,[this._desc]);
+  Note(this._title,this._priority,this._date,[this._desc]);
   Note.withId(this._id,this._priority,this._date,this._title,[this._desc]);
 
   set title(String newTitle){
@@ -24,7 +24,7 @@ class Note {
     this._date=newDate;
   }
   set priority(int newPriority){
-    if(newPriority==0 || newPriority==1){
+    if(newPriority>=0 && newPriority<=2){
       this._priority=newPriority;
     }
   }
@@ -36,7 +36,7 @@ class Note {
   int get priority => _priority;
 
   Map <String,dynamic> toMap(){
-    Map <String,dynamic> map;
+    Map <String,dynamic> map = Map();
     if(id!=null){
       map['id']=_id;
     }

@@ -7,6 +7,8 @@ import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/models/note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:math';
+import 'package:notekeeperapp/screens/about.dart';
+
 
 class NoteList extends StatefulWidget {
   @override
@@ -27,40 +29,43 @@ class _NoteListState extends State<NoteList> {
 
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.fromLTRB(18,20,0,0),
-            child: Text('Notes'.toUpperCase(),style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 1.5,
-            ),
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(7,18,0,0),
+          child: Text('Notekeeper'.toUpperCase(),style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColorDark,
+            letterSpacing: 1.5,
           ),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0,16,3,0),
-              child: IconButton(icon: Icon(Icons.info_outline,),
-              iconSize: 33,
-              onPressed: (){
-                debugPrint('info working fine');
-              },),
-            )
-          ],
+          ),
         ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0,12,3,0),
+            child: IconButton(icon: Icon(Icons.info,color: Theme.of(context).primaryColorDark),
+            iconSize: 32,
+            onPressed: (){
+              debugPrint('info working fine');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
+            },),
+          )
+        ],
       ),
       body: GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(new FocusNode());
           },
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(5,10,5,10),
+            padding: const EdgeInsets.fromLTRB(5,0,5,10),
+
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 200),
-                child: listViewNoteList()
+                child: Container(
+                  color: Colors.white,
+                    child: listViewNoteList())
             ),
           )
       ),

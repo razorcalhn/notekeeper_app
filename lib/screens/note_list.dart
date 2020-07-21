@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:notekeeperapp/screens/note_description.dart';
 import 'package:notekeeperapp/utils/database_helper.dart';
 import 'package:notekeeperapp/main.dart';
@@ -25,21 +27,30 @@ class _NoteListState extends State<NoteList> {
 
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Notes'.toUpperCase(),style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          letterSpacing: 2
-        ),),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.info_outline,),
-          iconSize: 30,
-          onPressed: (){
-            debugPrint('info working fine');
-          },)
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80),
+        child: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.fromLTRB(18,20,0,0),
+            child: Text('Notes'.toUpperCase(),style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              letterSpacing: 1.5,
+            ),
+            ),
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,16,3,0),
+              child: IconButton(icon: Icon(Icons.info_outline,),
+              iconSize: 33,
+              onPressed: (){
+                debugPrint('info working fine');
+              },),
+            )
+          ],
+        ),
       ),
       body: GestureDetector(
           onTap: () {
@@ -81,6 +92,10 @@ class _NoteListState extends State<NoteList> {
           return Padding(
             padding: const EdgeInsets.all(3.0),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: noteColor, width: 1)
+              ),
               shadowColor: shadowColor,
               elevation: 5,
               color: noteColor,

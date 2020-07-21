@@ -27,11 +27,20 @@ class _NoteListState extends State<NoteList> {
         title: Text('Notes'),
         centerTitle: true,
       ),
-      body: listViewNoteList(),
-      floatingActionButton: FloatingActionButton(
+      body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              child: listViewNoteList()
+          )
+      ),
+      floatingActionButton: FloatingActionButton.extended(
         tooltip: 'Add note',
         backgroundColor: Theme.of(context).primaryColorDark,
-        child: Icon(Icons.add),
+        icon: Icon(Icons.add),
+        label: Text('ADD NOTE'),
         onPressed: (){
           debugPrint('add note pressed');
           gotoNoteDescription(Note('',1,''),'Add Note');
@@ -43,6 +52,7 @@ class _NoteListState extends State<NoteList> {
   ListView listViewNoteList(){
     TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
 
         itemCount: count,
         itemBuilder: (BuildContext context, int position){

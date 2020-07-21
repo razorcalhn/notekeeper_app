@@ -4,6 +4,7 @@ import 'package:notekeeperapp/utils/database_helper.dart';
 import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/models/note.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:math';
 
 class NoteList extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _NoteListState extends State<NoteList> {
   DatabaseHelper databaseHelper = DatabaseHelper();
   int count=0;
   List<Note> noteList;
+  var random = Random();
   @override
   Widget build(BuildContext context) {
     if (noteList == null){
@@ -24,19 +26,35 @@ class _NoteListState extends State<NoteList> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notes'),
+        title: Text('Notes'.toUpperCase(),style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          letterSpacing: 2
+        ),),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.info_outline,),
+          iconSize: 30,
+          onPressed: (){
+            debugPrint('info working fine');
+          },)
+        ],
       ),
       body: GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(new FocusNode());
           },
-          child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              child: listViewNoteList()
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(5,10,5,10),
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                child: listViewNoteList()
+            ),
           )
       ),
       floatingActionButton: FloatingActionButton.extended(
+        elevation: 10,
         tooltip: 'Add note',
         backgroundColor: Theme.of(context).primaryColorDark,
         icon: Icon(Icons.add),
@@ -56,27 +74,35 @@ class _NoteListState extends State<NoteList> {
 
         itemCount: count,
         itemBuilder: (BuildContext context, int position){
+        int colorNum = random.nextInt(10);
+        Color shadowColor = Colors.primaries[colorNum];
+        Color noteColor = Colors.primaries[colorNum][50];
 
-          return Card(
-            color: Colors.white,
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: getNoteColor(noteList[position].priority),//if not work change to this.notelist
-                child: Icon(getNoteIcon(noteList[position].priority),
+          return Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Card(
+              shadowColor: shadowColor,
+              elevation: 5,
+              color: noteColor,
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: getNoteColor(noteList[position].priority),//if not work change to this.notelist
+                  child: Icon(getNoteIcon(noteList[position].priority),
+                  ),
                 ),
-              ),
-              trailing: GestureDetector(
-                  child: Icon(Icons.delete_outline),
-                      onTap: (){
-                    _deleteNote(context,noteList[position]);
+                trailing: GestureDetector(
+                    child: Icon(Icons.delete_outline),
+                        onTap: (){
+                      _deleteNote(context,noteList[position]);
+                  },
+                ),
+                title: Text(noteList[position].title,style: titleStyle,),
+                subtitle: Text(noteList[position].date),
+                onTap: (){
+                  debugPrint('ontap pressed');
+                  gotoNoteDescription(noteList[position],'Edit Note');
                 },
               ),
-              title: Text(noteList[position].title,style: titleStyle,),
-              subtitle: Text(noteList[position].date),
-              onTap: (){
-                debugPrint('ontap pressed');
-                gotoNoteDescription(noteList[position],'Edit Note');
-              },
             ),
           );
         } );
@@ -164,5 +190,15 @@ class _NoteListState extends State<NoteList> {
             backgroundColor: Colors.black38,);
     Scaffold.of(context).showSnackBar(snackBar);
   }
+
+  BoxShadow buildBoxShadow(Color color, BuildContext context) {
+
+    return BoxShadow(
+        color:  color.withAlpha(60),
+        blurRadius: 8,
+        offset: Offset(0, 8));
+  }
+
+
 }
 

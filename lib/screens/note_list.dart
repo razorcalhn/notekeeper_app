@@ -180,13 +180,13 @@ class _NoteListState extends State<NoteList> {
     var color;
     switch(priority){
       case 0:
-        color= Colors.yellow;
+        color= Colors.blue;
         break;
       case 1:
-        color=Colors.deepOrange[400];
+        color=Colors.greenAccent;
         break;
       case 2:
-        color = Colors.red;
+        color = Colors.redAccent;
         break;
     }
     return color;
@@ -195,11 +195,11 @@ class _NoteListState extends State<NoteList> {
   IconData getNoteIcon(int priority){
     switch (priority){
       case 0:
-        return Icons.keyboard_arrow_right;
+        return Icons.arrow_forward;
         break;
 
       case 1:
-        return Icons.arrow_forward;
+        return Icons.arrow_forward_ios;
         break;
 
       case 2:

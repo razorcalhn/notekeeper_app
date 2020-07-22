@@ -39,8 +39,9 @@ class AboutApp extends StatelessWidget {
                 Center(
                   child: Text('razorcalhn'.toLowerCase(),
                       style: TextStyle(
-                        fontSize: 30,
-                          color: Colors.black,
+                        fontSize: 35,
+                          color: Colors.black54,
+                          fontFamily: 'JosefinSans',
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1)),
                 ),

@@ -15,9 +15,7 @@ class Note {
   }
 
   set desc(String newDesc){
-    if (newDesc.length<=255){
-      this._desc=newDesc;
-    }
+    this._desc=newDesc;
   }
 
   set date(String newDate){
@@ -50,7 +48,7 @@ class Note {
   Note.fromMap(Map<String,dynamic> map){
     this._id=map['id'];
     this._title=map['title'];
-    this._desc=map['decs'];
+    this._desc=map['desc'];
     this._priority=map['priority'];
     this._date=map['date'];
   }

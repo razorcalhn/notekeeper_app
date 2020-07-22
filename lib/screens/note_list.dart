@@ -37,6 +37,7 @@ class _NoteListState extends State<NoteList> {
           padding: const EdgeInsets.fromLTRB(7,13,0,4),
           child: Text('Notekeeper'.toUpperCase(),style: TextStyle(
             fontSize: 30,
+            fontFamily: 'JosefinSans',
             fontWeight: FontWeight.bold,
             color: Theme.of(context).primaryColorDark,
             letterSpacing: 1.5,
@@ -55,9 +56,15 @@ class _NoteListState extends State<NoteList> {
           )
         ],
       ),
-      body: GestureDetector(
+      body: noteList.length ==0 ?
+        Container(
+            color: Colors.white,
+            child: Text('NOTHING TO SHOW'),
+            alignment: Alignment.center ,) :
+        GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(new FocusNode());
+            debugPrint(noteList.length.toString() + 'lenggth');
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5,0,5,10),
@@ -75,7 +82,9 @@ class _NoteListState extends State<NoteList> {
         tooltip: 'Add note',
         backgroundColor: Theme.of(context).primaryColorDark,
         icon: Icon(Icons.add),
-        label: Text('ADD NOTE'),
+        label: Text('ADD NOTE',style: TextStyle(
+          fontFamily: 'JosefinSans',
+        ),),
         onPressed: (){
           debugPrint('add note pressed');
           gotoNoteDescription(Note('',1,''),'Add Note');
@@ -85,8 +94,6 @@ class _NoteListState extends State<NoteList> {
   }
 
   ListView listViewNoteList(){
-    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    List<String> colorList=['s'];
     return ListView.builder(
       physics: BouncingScrollPhysics(),
 
@@ -116,16 +123,17 @@ class _NoteListState extends State<NoteList> {
                     child: Icon(Icons.delete_outline),
                         onTap: (){
                       _deleteNote(context,noteList[position]);
+
                   },
                 ),
-                title: Text(noteList[position].title,style: titleStyle,),
-                subtitle: Text(noteList[position].date),
+                title: Text(noteList[position].title,style: TextStyle(fontFamily: 'JosefinSans',),),
+                subtitle: Text(noteList[position].date,style: TextStyle(fontFamily: 'JosefinSans',),),
                 onTap: () async {
-                  debugPrint('ontap pressed');
-                  //gotoNoteDescription(noteList[position],'Edit Note');
+                  debugPrint('ontap pressed for notelist card');
+                  debugPrint(noteList[position].desc);
                   await gotoViewNote(noteList[position]);
                   updateListView();
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => ViewNote(noteList[position])));
+
                 },
               ),
             ),

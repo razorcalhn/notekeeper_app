@@ -49,7 +49,7 @@ class DatabaseHelper{
 
   Future <List<Map<String,dynamic>>>getNotesMapList() async {
     Database db = await this.database;
-    var result = await db.query(noteTable,orderBy: '$colPriority DESC');
+    var result = await db.query(noteTable,orderBy: '$colPriority DESC,$colId DESC');
     return result;
   }
   //insert

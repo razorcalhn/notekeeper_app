@@ -30,7 +30,7 @@ class _NoteDescState extends State<NoteDesc> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(appBarTitle,style: TextStyle(color: Theme.of(context).primaryColorDark),),
+        title: Text(appBarTitle,style: TextStyle(color: Theme.of(context).primaryColorDark,fontFamily: 'JosefinSans',),),
         centerTitle: true,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -82,7 +82,9 @@ class _NoteDescState extends State<NoteDesc> {
                         borderRadius: BorderRadius.circular(10))
                   ),
                     onChanged: (text){
-                    note.title = titleController.text;//check this later
+                      note.title = titleController.text;//check this later
+                      debugPrint('note desc wala onchanged   $titleController.text');
+
                     },
                 ),
               ),
@@ -99,6 +101,7 @@ class _NoteDescState extends State<NoteDesc> {
                   ),
                   onChanged: (text){
                     note.desc=descriptionController.text;// check this later
+                    debugPrint('note desc wala onchanged   $descriptionController.text');
                   },
                 ),
               ),
@@ -110,7 +113,7 @@ class _NoteDescState extends State<NoteDesc> {
                     height: 50,
                     width: 140,
                     child: RaisedButton(
-                      child: Text('Save',style: TextStyle(fontSize: 20,letterSpacing: 1)),
+                      child: Text('Save',style: TextStyle(fontSize: 20,fontFamily: 'JosefinSans',letterSpacing: 1)),
                       color: Theme.of(context).accentColor,
                       textColor:Colors.white ,
                       shape:RoundedRectangleBorder(
@@ -118,7 +121,8 @@ class _NoteDescState extends State<NoteDesc> {
                       ) ,
                       onPressed: (){
                         debugPrint('save pressed');
-                        _save();
+                        titleController.text != '' ? _save() : debugPrint('cant delete nothing');
+                        //_save();
                       },
                     ),
                   ),
@@ -127,7 +131,7 @@ class _NoteDescState extends State<NoteDesc> {
                     height: 50,
                     width: 140,
                     child: RaisedButton(
-                      child: Text('Delete',style: TextStyle(fontSize: 20,letterSpacing: 1),),
+                      child: Text('Delete',style: TextStyle(fontSize: 20,fontFamily: 'JosefinSans',letterSpacing: 1),),
                       color: Theme.of(context).accentColor,
                       textColor: Colors.white,
                         shape:RoundedRectangleBorder(
@@ -136,7 +140,7 @@ class _NoteDescState extends State<NoteDesc> {
                         onPressed: (){
                         setState(() {
                           debugPrint('delete pressed');
-                          _delete();
+                          note.id != null ? _showAlertDialogue() : debugPrint('cant delete empty');
                         });
                       },
                     ),
@@ -186,12 +190,9 @@ class _NoteDescState extends State<NoteDesc> {
 
   _save() async {
     //Navigator.pop(context,true);//check this too
-    int count = 0;
-    Navigator.popUntil(context, (route) {
-      return count++ == 2;
-    });
-
-    note.date = DateFormat.yMMMd().format(DateTime.now());
+    debugPrint('_save' + note.title);
+    //debugPrint('_save' + note.desc);
+    note.date = DateFormat.yMMMd().add_jm().format(DateTime.now());
     int result;
     if(note.id != null){
       result = await databaseHelper.updateNote(note);
@@ -201,41 +202,64 @@ class _NoteDescState extends State<NoteDesc> {
     }
 
     if(result!=null){
-      _showAlertDialogue('Note saved successfully');
+      debugPrint('saved succ');
     }
     else{
-      _showAlertDialogue('Error saving note');
+      debugPrint('not savedd');
     }
+    int count = 0;
+    await Navigator.pop(context,true);
+    //Navigator.pop(context,true); //just so is goes to first page
+
   }
 
   _delete() async {
     //Navigator.pop(context,true);
-    int count = 0;
-    Navigator.popUntil(context, (route) {
-      return count++ == 2;
-    });
-
 
     if(note.id == null){
-      _showAlertDialogue('you drunk or what?');
+      debugPrint('wrong action not empty');
       return 0;
     }
-    int result = await databaseHelper.deleteNote(note.id);
-    
-    if(result != null){
-      _showAlertDialogue('Note deleted successfully');
-    }
-    else{
-      _showAlertDialogue('Error occurred while deleting note');
-    }
+    //int result = await databaseHelper.deleteNote(note.id);
+
+    //bool result = _showAlertDialogue();
+    //debugPrint(result.toString());
+
+
+    int deleteConf = await databaseHelper.deleteNote(note.id);
+    deleteConf != null ? debugPrint('deleted!') : debugPrint('not deleted someproblem in db');
+    int count = 0;
+    Navigator.popUntil(context, (route) {
+      return count++ == 3;
+    });
 
   }
 
 
-  _showAlertDialogue(String s){
+  _showAlertDialogue(){
     AlertDialog alertDialogue = AlertDialog(
       title: Text('Status'),
-      content: Text(s),
+      content: Text('This note will be permanently deleted,\ncontinue?'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('YES'),
+          onPressed: (){
+            debugPrint('presses yes on alertbox');
+            _delete();
+            //return true;
+          },
+        ),
+        FlatButton(
+          child: Text('NO'),
+          onPressed: (){
+            debugPrint('user pressed no on alertbox');
+            int count = 0;
+            Navigator.popUntil(context, (route) {
+              return count++ == 3;
+            });
+          },
+        )
+      ],
 
     );
     showDialog(

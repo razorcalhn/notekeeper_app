@@ -24,13 +24,16 @@ class _ViewNoteState extends State<ViewNote> {
   final Note note;
   _ViewNoteState(this.note);
   Widget build(BuildContext context) {
+    debugPrint(note.title);
+    debugPrint(note.desc);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text('View note',style: TextStyle(
-          color: Theme.of(context).primaryColor
+          color: Theme.of(context).primaryColor,
+          fontFamily: 'JosefinSans',
         ),),
       ),
       body: Container(
@@ -43,7 +46,8 @@ class _ViewNoteState extends State<ViewNote> {
                   padding:EdgeInsets.fromLTRB(30, 40, 30, 20)
                   ,child: Text(note.title,style: TextStyle(
                 fontSize: 50,
-                fontWeight: FontWeight.w700
+                fontWeight: FontWeight.w700,
+                fontFamily: 'JosefinSans',
               ),)),
               onTap: (){
                 debugPrint('go to edit');
@@ -53,7 +57,8 @@ class _ViewNoteState extends State<ViewNote> {
             GestureDetector(
               child: Container(
                   padding:EdgeInsets.fromLTRB(30, 50, 30, 20)
-                  ,child: Text(note.desc!=null? note.desc:'No decs',style: TextStyle(
+                  ,child: Text(note.desc!=null ? note.desc:'No description.',style: TextStyle(
+                  //,child: Text(note.desc,style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w700
               ),
@@ -71,7 +76,10 @@ class _ViewNoteState extends State<ViewNote> {
   }
   void _goToDesc() async {
 
-    await Navigator.push(
+    bool result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => NoteDesc(note, 'Edit Note')));
+    if(result!=null){
+      Navigator.pop(context);
+    }
   }
 }

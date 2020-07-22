@@ -8,6 +8,7 @@ import 'package:notekeeperapp/models/note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:math';
 import 'package:notekeeperapp/screens/about.dart';
+import 'package:notekeeperapp/screens/view_note.dart';
 
 
 class NoteList extends StatefulWidget {
@@ -33,7 +34,7 @@ class _NoteListState extends State<NoteList> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.fromLTRB(7,18,0,0),
+          padding: const EdgeInsets.fromLTRB(7,13,0,4),
           child: Text('Notekeeper'.toUpperCase(),style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class _NoteListState extends State<NoteList> {
         ),
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(0,12,3,0),
+            padding: const EdgeInsets.fromLTRB(0,10,3,3),
             child: IconButton(icon: Icon(Icons.info,color: Theme.of(context).primaryColorDark),
             iconSize: 32,
             onPressed: (){
@@ -119,9 +120,12 @@ class _NoteListState extends State<NoteList> {
                 ),
                 title: Text(noteList[position].title,style: titleStyle,),
                 subtitle: Text(noteList[position].date),
-                onTap: (){
+                onTap: () async {
                   debugPrint('ontap pressed');
-                  gotoNoteDescription(noteList[position],'Edit Note');
+                  //gotoNoteDescription(noteList[position],'Edit Note');
+                  await gotoViewNote(noteList[position]);
+                  updateListView();
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => ViewNote(noteList[position])));
                 },
               ),
             ),
@@ -135,6 +139,13 @@ class _NoteListState extends State<NoteList> {
       updateListView();
     }
   }
+
+  void gotoViewNote(Note note) async {
+    bool result = await Navigator.push(context,MaterialPageRoute(builder: (context)=> ViewNote(note)));
+    if(result ==true){//not necessary to add a bool check.We'll need to update the listview nevertheless after popping the detail page.
+      updateListView();}
+  }
+
 
   /*void updateListView() async {
     var db = await databaseHelper.database;

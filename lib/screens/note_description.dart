@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notekeeperapp/screens/note_description.dart';
@@ -28,89 +29,124 @@ class _NoteDescState extends State<NoteDesc> {
     descriptionController.text=note.desc;
     return Scaffold(
       appBar: AppBar(
-        title: Text(appBarTitle),
+        elevation: 0,
+        title: Text(appBarTitle,style: TextStyle(color: Theme.of(context).primaryColorDark),),
         centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).primaryColor
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ListView(
-          children: <Widget>[
-            DropdownButton(
-              iconSize: 40,
-              items: _priority.map((String stringItem){
-                return DropdownMenuItem(
-                  value: stringItem,
-                  child: Text(stringItem,style: TextStyle(fontWeight: FontWeight.bold),),
-                );
-              }).toList(),
-              value: priorityInText(note.priority),
-              onChanged: (value){
-                setState(() {
-                  debugPrint('value selected by user is $value');
-                  priorityInInt(value);
-                });
-              },
-            ),
-            SizedBox(height: 10.0,),
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                labelStyle: textStyle,
-                labelText: 'Title',
-                border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5))
-              ),
-                onChanged: (text){
-                note.title = titleController.text;//check this later
-                },
-            ),
-            SizedBox(height: 15.0,),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                  labelStyle: textStyle,
-                  labelText: 'Description',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5))
-              ),
-              onChanged: (text){
-                note.desc=descriptionController.text;// check this later
-              },
-            ),
-            SizedBox(height: 20),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: RaisedButton(
-                    child: Text('Save'),
-                    color: Theme.of(context).primaryColorDark,
-                    textColor: Theme.of(context).primaryColorLight,
-                    onPressed: (){
-                      debugPrint('save pressed');
-                      _save();
-                    },
-                  ),
-                ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: RaisedButton(
-                    child: Text('Delete'),
-                    color: Theme.of(context).primaryColorDark,
-                    textColor: Theme.of(context).primaryColorLight,
-                    onPressed: (){
+      body: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+          child: ListView(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text('Notes with higher priority\nwill be on top',
+                    style: TextStyle(
+                        fontSize: 13,
+                        letterSpacing: 1,
+
+                    ),),
+                  DropdownButton(
+                    iconSize: 55,
+                    items: _priority.map((String stringItem){
+                      return DropdownMenuItem(
+                        value: stringItem,
+                        child: Text(stringItem,style: TextStyle(fontWeight: FontWeight.bold),),
+                      );
+                    }).toList(),
+                    value: priorityInText(note.priority),
+                    onChanged: (value){
                       setState(() {
-                        debugPrint('delete pressed');
-                        _delete();
+                        debugPrint('value selected by user is $value');
+                        priorityInInt(value);
                       });
                     },
                   ),
+                ],
+              ),
+              SizedBox(height: 10.0,),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    labelStyle: textStyle,
+                    labelText: 'Title',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))
+                  ),
+                    onChanged: (text){
+                    note.title = titleController.text;//check this later
+                    },
                 ),
+              ),
+              SizedBox(height: 15.0,),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: TextField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                      labelStyle: textStyle,
+                      labelText: 'Description',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))
+                  ),
+                  onChanged: (text){
+                    note.desc=descriptionController.text;// check this later
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 140,
+                    child: RaisedButton(
+                      child: Text('Save',style: TextStyle(fontSize: 20,letterSpacing: 1)),
+                      color: Theme.of(context).accentColor,
+                      textColor:Colors.white ,
+                      shape:RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)
+                      ) ,
+                      onPressed: (){
+                        debugPrint('save pressed');
+                        _save();
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Container(
+                    height: 50,
+                    width: 140,
+                    child: RaisedButton(
+                      child: Text('Delete',style: TextStyle(fontSize: 20,letterSpacing: 1),),
+                      color: Theme.of(context).accentColor,
+                      textColor: Colors.white,
+                        shape:RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)
+                        ),
+                        onPressed: (){
+                        setState(() {
+                          debugPrint('delete pressed');
+                          _delete();
+                        });
+                      },
+                    ),
+                  ),
 
-              ],
-            )
+                ],
+              )
 
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -149,7 +185,11 @@ class _NoteDescState extends State<NoteDesc> {
   }
 
   _save() async {
-    Navigator.pop(context,true);//check this too
+    //Navigator.pop(context,true);//check this too
+    int count = 0;
+    Navigator.popUntil(context, (route) {
+      return count++ == 2;
+    });
 
     note.date = DateFormat.yMMMd().format(DateTime.now());
     int result;
@@ -169,7 +209,13 @@ class _NoteDescState extends State<NoteDesc> {
   }
 
   _delete() async {
-    Navigator.pop(context,true);
+    //Navigator.pop(context,true);
+    int count = 0;
+    Navigator.popUntil(context, (route) {
+      return count++ == 2;
+    });
+
+
     if(note.id == null){
       _showAlertDialogue('you drunk or what?');
       return 0;

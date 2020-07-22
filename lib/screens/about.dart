@@ -52,11 +52,11 @@ class AboutApp extends StatelessWidget {
                       child: Container(
                         width: 70,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children : <Widget>[Icon(
                           Icons.link
                         ),
-                          Text(' Github')]),
+                          Text('Github')]),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)

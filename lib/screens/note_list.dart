@@ -85,12 +85,13 @@ class _NoteListState extends State<NoteList> {
 
   ListView listViewNoteList(){
     TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    List<String> colorList=['s'];
     return ListView.builder(
       physics: BouncingScrollPhysics(),
 
         itemCount: count,
         itemBuilder: (BuildContext context, int position){
-        int colorNum = random.nextInt(10);
+        int colorNum = random.nextInt(18);
         Color shadowColor = Colors.primaries[colorNum];
         Color noteColor = Colors.primaries[colorNum][50];
 

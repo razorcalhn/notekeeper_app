@@ -103,7 +103,7 @@ class _NoteListState extends State<NoteList> {
         Color shadowColor = Colors.primaries[colorNum];
         Color noteColor = Colors.primaries[colorNum][50];
 
-          return Padding(
+          return Container(
             padding: const EdgeInsets.all(3.0),
             child: Card(
               shape: RoundedRectangleBorder(
@@ -235,7 +235,7 @@ class _NoteListState extends State<NoteList> {
 
     return BoxShadow(
         color:  color.withAlpha(60),
-        blurRadius: 8,
+        blurRadius: 10,
         offset: Offset(0, 8));
   }
 

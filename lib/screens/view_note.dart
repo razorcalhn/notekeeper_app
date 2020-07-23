@@ -58,7 +58,6 @@ class _ViewNoteState extends State<ViewNote> {
               child: Container(
                   padding:EdgeInsets.fromLTRB(30, 50, 30, 20)
                   ,child: Text(note.desc!=null ? note.desc:'No description.',style: TextStyle(
-                  //,child: Text(note.desc,style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w700
               ),

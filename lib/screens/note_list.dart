@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:notekeeperapp/screens/note_description.dart';
 import 'package:notekeeperapp/utils/database_helper.dart';
-import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/models/note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:math';
 import 'package:notekeeperapp/screens/about.dart';
 import 'package:notekeeperapp/screens/view_note.dart';
+import 'package:ant_icons/ant_icons.dart';
 
 
 class NoteList extends StatefulWidget {
@@ -35,7 +35,7 @@ class _NoteListState extends State<NoteList> {
         elevation: 0,
         title: Padding(
           padding: const EdgeInsets.fromLTRB(7,13,0,4),
-          child: Text('Notekeeper'.toUpperCase(),style: TextStyle(
+          child: Text('Notekeeper',style: TextStyle(
             fontSize: 30,
             fontFamily: 'JosefinSans',
             fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class _NoteListState extends State<NoteList> {
         ),
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(0,10,3,3),
+            padding: const EdgeInsets.fromLTRB(0,6,3,7),
             child: IconButton(icon: Icon(Icons.info,color: Theme.of(context).primaryColorDark),
             iconSize: 32,
             onPressed: (){
@@ -116,8 +116,8 @@ class _NoteListState extends State<NoteList> {
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: getNoteColor(noteList[position].priority),//if not work change to this.notelist
-                  child: Icon(getNoteIcon(noteList[position].priority),
-                  ),
+                  //child: Icon(getNoteIcon(noteList[position].priority),
+                  child: Icon(AntIcons.right_circle_outline),
                 ),
                 trailing: GestureDetector(
                     child: Icon(Icons.delete_outline),
@@ -183,7 +183,7 @@ class _NoteListState extends State<NoteList> {
         color= Colors.blue;
         break;
       case 1:
-        color=Colors.greenAccent;
+        color=Colors.green;
         break;
       case 2:
         color = Colors.redAccent;
@@ -192,24 +192,6 @@ class _NoteListState extends State<NoteList> {
     return color;
   }
 
-  IconData getNoteIcon(int priority){
-    switch (priority){
-      case 0:
-        return Icons.arrow_forward;
-        break;
-
-      case 1:
-        return Icons.arrow_forward_ios;
-        break;
-
-      case 2:
-        return Icons.priority_high;
-        break;
-
-      default:
-        return Icons.keyboard_arrow_right;
-    }
-  }
 
   void _deleteNote(BuildContext context,Note note) async {
     int result = await databaseHelper.deleteNote(note.id);
@@ -226,8 +208,8 @@ class _NoteListState extends State<NoteList> {
   void _showSnackBar(BuildContext context,String message){
     final snackBar = SnackBar(content: Text(message),
             behavior: SnackBarBehavior.fixed,
-            duration: Duration(seconds: 2),
-            backgroundColor: Colors.black38,);
+            duration: Duration(milliseconds: 700),
+            backgroundColor: Colors.black54,);
     Scaffold.of(context).showSnackBar(snackBar);
   }
 

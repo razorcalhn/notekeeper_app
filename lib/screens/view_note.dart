@@ -82,4 +82,6 @@ class _ViewNoteState extends State<ViewNote> {
       Navigator.pop(context);
     }
   }
+
+
 }

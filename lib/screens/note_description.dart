@@ -34,7 +34,7 @@ class _NoteDescState extends State<NoteDesc> {
         centerTitle: true,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor
+          color: Theme.of(context).primaryColorDark
         ),
       ),
       body: Container(
@@ -114,7 +114,7 @@ class _NoteDescState extends State<NoteDesc> {
                     width: 140,
                     child: RaisedButton(
                       child: Text('Save',style: TextStyle(fontSize: 20,fontFamily: 'JosefinSans',letterSpacing: 1)),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColorDark,
                       textColor:Colors.white ,
                       shape:RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)
@@ -132,7 +132,7 @@ class _NoteDescState extends State<NoteDesc> {
                     width: 140,
                     child: RaisedButton(
                       child: Text('Delete',style: TextStyle(fontSize: 20,fontFamily: 'JosefinSans',letterSpacing: 1),),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColorDark,
                       textColor: Colors.white,
                         shape:RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25)

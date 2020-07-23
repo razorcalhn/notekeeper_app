@@ -1,17 +1,23 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:notekeeperapp/main.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:expanding_bottom_bar/expanding_bottom_bar.dart';
 
 
 class AboutApp extends StatelessWidget {
+  int index=0;
   @override
+
   Widget build(BuildContext context) {
+    int index =0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColorDark),
       ),
       body: Container(
         color: Colors.white,
@@ -24,7 +30,7 @@ class AboutApp extends StatelessWidget {
 
                 Text('About app'.toUpperCase(),
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 fontSize: 20,
                 fontWeight: FontWeight.bold),),
                 SizedBox(height: 30,),
@@ -57,7 +63,7 @@ class AboutApp extends StatelessWidget {
                             children : <Widget>[Icon(
                           Icons.link
                         ),
-                          Text('Github')]),
+                          Text(' Github')]),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)
@@ -106,14 +112,41 @@ class AboutApp extends StatelessWidget {
           ],
         ),
       ),
+      /*
+      bottomNavigationBar: ExpandingBottomBar(
+          items:  [
+        ExpandingBottomBarItem(
+            text: '',
+            icon: AntIcons.font_colors,
+            selectedColor: Colors.blueAccent,),
+        ExpandingBottomBarItem(
+          text: 'z',
+            icon: AntIcons.font_colors,
+            selectedColor: Colors.red,),
+        ExpandingBottomBarItem(
+          text: 'z',
+            icon: AntIcons.font_colors,
+            selectedColor: Colors.green,),
+        ExpandingBottomBarItem(
+          text: 'z',
+              icon: AntIcons.font_colors,
+              selectedColor: Colors.deepPurpleAccent,),
+        ExpandingBottomBarItem(
+          text: 'z',
+              icon: AntIcons.font_colors,
+              selectedColor: Colors.yellow,)
+          ],
+          selectedIndex: index,
+          onIndexChanged: (demo){
+            index = demo;
+            //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyApp.s(index)), (route) => false);
+            debugPrint(demo.toString());
+          }) ,*/
     );
   }
 }
 
 
-
-
-////add a made with flutter logo!
 
 
 

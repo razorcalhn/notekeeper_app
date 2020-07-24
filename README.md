@@ -1,4 +1,4 @@
-# notekeeperapp
+# Notekeeper
 
 A simple Flutter application for keeping notes.
 
@@ -24,8 +24,7 @@ or
 - Download the built APK from [here](https://github.com/razorcalhn/notekeeper_app/blob/app-beautification/github_assets/notekeeper.apk)
 
 ## Screenshots
-<img src="github_assets/ss1.png" height="200">
-<img src="github_assets/ss2.png" height="200">
+<img src="github_assets/ss1.png" height="200">  <img src="github_assets/ss2.png" height="200">
 <img src="github_assets/ss3.png" height="200">
 <img src="github_assets/ss4.png" height="200">
 <img src="github_assets/ss5.png" height="200">

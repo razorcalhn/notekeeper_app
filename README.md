@@ -13,9 +13,9 @@ A simple Flutter application for keeping notes.
 - uses SQLite and path-provider plugins on backend for database and save path selection.
 - provider plugin and shared-preferences for dynamic and persistent theming.
 - other plugins used:
-  intl: ^0.16.1
-  url_launcher: ^5.5.0
-  ant_icons: ^1.0.0
+  intl: ^0.16.1,
+  url_launcher: ^5.5.0,
+  ant_icons: ^1.0.0,
   expanding_bottom_bar: ^0.1.2
 
 ## Run project

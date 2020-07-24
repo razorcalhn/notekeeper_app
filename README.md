@@ -1,6 +1,6 @@
 # Notekeeper
 
-A simple Flutter application for keeping notes.
+A simple Flutter application for keeping notes using flutter framework and dart.
 
 ## Features
 - *UI*: Note cards with random color tints and date&time. 

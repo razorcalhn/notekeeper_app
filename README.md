@@ -3,11 +3,11 @@
 A simple Flutter application for keeping notes.
 
 ## Features
-- *UI*: Note cards with random color tints. 
+- *UI*: Note cards with random color tints and date&time. 
 - *Themes*: Persistent and dynamically changing themes.
 - *Sort notes by priority*: Set priority of your notes and they'll be sorted accordingly.
 - *View*: View saved notes in a cleaner new window and tap to edit.
-- *Edit note*: Edit note that you saved previously, add a description or delete permanently.
+- *Edit note*: Edit previously saved notes, add a description or delete permanently.
 
 ## Information
 - uses SQLite and path-provider plugins on backend for database and save path selection.
@@ -18,7 +18,7 @@ A simple Flutter application for keeping notes.
   ant_icons: ^1.0.0
   expanding_bottom_bar: ^0.1.2
 
-## Run the project
+## Run project
 - With Flutter installed, clone project and run `flutter run --release` in that directory, 
 or
 - Download the built APK from [here](https://github.com/razorcalhn/notekeeper_app/blob/app-beautification/github_assets/notekeeper.apk)

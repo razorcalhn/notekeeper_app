@@ -1,0 +1,49 @@
+1-Create a model class consisting of the columns of the database.
+
+2-make a constructor for all the values.(private)(made two constructors in the notekeeper app,   one with Id and another without. The one with Id will be used for adding a new note and the    other one for editing it.)
+
+3-add setter functions to set the values of the private variables of the class taking input from the user... 
+
+4-add getter functions to get those values from the private members of the class note to be used outside it..
+
+5-add a funtion to covert the data to a map(SQFlite only takes MAP objects)
+
+6-add a function to covert the map data back to class objects to be used by the application.(use named constructor)
+
+
+
+
+
+
+
+
+**Making helper class for the database**(////db.query always returns List of Map/////)
+
+1-Add the plugins required(SQFlite,intl,io(for handling folders),path_provider(for finding path in iOS and Android),async and Database class)
+
+2-create a DB class and make a singleton object of the same class(static).
+
+3-Make a factory constructor and provide the condition so that the singleton is only intialised once. (using named constructor and not passing any values.)
+
+4-add the objects to be used in the database table along with the table name.
+
+5-make a createDb function which would run db.create command to create a table in database..
+
+6-make a initializedatabase function with would run the openDatabase method to create the database and eventuallu call the createDb function.
+
+7-create a getter function which would get the _database use the private singleton of type Database return the _database and if _database is null..create the database using initializedatabase command (point-6).
+
+8-now the database is made and table created.
+
+9-write the functions to perform CRUD operations..(this is why it is called the database helper class as it helps the database to perform certain operations.).All these functions would be async and of return type Future as it would await the resposnse from the database. 
+
+10-first we will fetch all the records(the whole list of notes)..  either using db.query(uses helper functions for sql) or db.raw query(uses just one line of pure SQL statement.)..(returns the Future of List of Map objects(return type=Future <List<Map<String,dynamic>>>) which we would later convert to Note objects.)
+
+11-then, insert function..this takes in an argument of type Note and use the db.insert operation..again here also we could use ether db.insert(uses helper functions) or just db.rawinsert for pure SQL statement. To insert the note in the Database we will use the toMap() function created earlier in the note class to convert the Note type into Map type as the SQLite Database only saves the datatype Map.(returns a Futue<int>)
+
+12-for delete function..takes in the argument of type int..use either of the queries..db.delete()..where $colid(in helper class)=$id..(returns Future<int>)
+
+13-for update function.. same drill.To update also use the note.toMap() function..(returns Future<int>).
+
+14-for count function..use db.rawquery()..write count statement on Id and it returns the Future of List of Map..which we would later convert to int.
+

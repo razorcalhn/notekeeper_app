@@ -12,24 +12,107 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int i;
+  List <Color> colorList =[Colors.blue,Colors.red,Colors.green,Colors.deepPurple,Colors.yellow];
+
 
   @override
 
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    debugPrint('super init state ran');
+    updateFromSP();
+  }
+
+
+
+  Widget build(BuildContext context)  {
 
     return ChangeNotifierProvider <ThemeChanger>(
-      create: (_) => ThemeChanger(ThemeData.light()),
+      create: (_) {
+        debugPrint('create (_) ran ' + i.toString());
+        return ThemeChanger(ThemeData(primarySwatch: colorList[i]));},
       child: MaterialAppWithTheme(),
     );
   }
 
+
+  void setNum(temp){
+    temp=temp.toString();
+    debugPrint('set num ki  value--->  ' + temp);
+    if (temp == '0'){
+      setState(() {
+        this.i = 0;
+      });
+    }
+
+    if (temp == '1'){
+      setState(() {
+        this.i = 1;
+      });
+    }
+
+    if (temp == '2'){
+      setState(() {
+        this.i = 2;
+      });
+    }
+
+    if (temp == '3'){
+      setState(() {
+        this.i = 3;
+      });
+    }
+
+    if (temp == '4'){
+      setState(() {
+        this.i = 4;
+      });
+    }
+
+    debugPrint('set num  ' + temp);
+  }
+
+  updateFromSP() async {
+    int i = await getThemeFromSP();
+
+    if (i == 0) {
+      setNum(0);
+    }
+    if (i == 1) {
+      setNum(1);
+    }
+    if (i == 2) {
+      setNum(2);
+    }
+    if (i == 3) {
+      setNum(3);
+    }
+    if (i == 4) {
+      setNum(4);
+    }
+
+    debugPrint('update from sp ' + i.toString());
+  }
+
+
+
+
 }
 
 class MaterialAppWithTheme extends StatelessWidget {
-  
+
+
   @override
   Widget build(BuildContext context) {
+
     final theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -44,6 +127,3 @@ class MaterialAppWithTheme extends StatelessWidget {
 
 
 
-
-
-Note note = Note('example title', 2, 'example date','Your childhood Your childhood teacher did not wrong you when they taught you that there should be three, or four, or five sentences in a paragraph. It is important to understand, however, that the aim in teaching this was not to impart a hard-and-fast rule of grammar, drawn from an authoritative-but-dusty book. The true aim of this strategy was to teach you that your ideas must be well supported to be persuasive and effective. teacher did not wrong you when they taught you that there should be three, or four, or five sentences in a paragraph. It is important to understand, however, that the aim in teaching this was not to impart a hard-and-fast rule of grammar, drawn from an authoritative-but-dusty book. The true aim of this strategy was to teach you that your ideas must be well supported to be persuasive and effective.');

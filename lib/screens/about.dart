@@ -26,7 +26,7 @@ class AboutApp extends StatelessWidget {
       body: Container(
         color: Colors.white,
         child: ListView(
-          physics: ScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           children: <Widget>[
             buildCardWidget(Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,25 +49,29 @@ class AboutApp extends StatelessWidget {
                 Center(
                   child: Text('razorcalhn'.toLowerCase(),
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 25,
                           color: Colors.black54,
                           fontFamily: 'JosefinSans',
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1)),
                 ),
                 SizedBox(height: 35,),
-                Center(child: Text('Source code')),
+                Center(child: Text('Source code',style: TextStyle(color: Colors.black54,
+                letterSpacing: 1),)),
                 Center(
                     child:MaterialButton(
-                      color: Colors.white70,
+                      color: Colors.white60,
                       child: Container(
                         width: 70,
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children : <Widget>[Icon(
-                          Icons.link
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children : <Widget>[Icon(
+                            Icons.link
+                          ),
+                            Text('Github')]),
                         ),
-                          Text(' Github')]),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)
@@ -121,7 +125,7 @@ class AboutApp extends StatelessWidget {
           navBarHeight: 90,
           items:  [
         ExpandingBottomBarItem(
-            text: 'Blue',
+            text: 'select\ntheme',
             icon: AntIcons.font_colors,
             selectedColor: Colors.blueAccent,),
         ExpandingBottomBarItem(
@@ -142,9 +146,12 @@ class AboutApp extends StatelessWidget {
               selectedColor: Colors.yellow,)
           ],
           selectedIndex: index,
-          onIndexChanged: (demo){
+          onIndexChanged: (demo) {
             index = demo;
+            setThemeToSP(demo);
             _themeChanger.setTheme(ThemeData(primarySwatch:colorList[demo]));
+            Navigator.pop(context);
+
 
             //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyApp.s(index)), (route) => false);
             debugPrint(demo.toString());

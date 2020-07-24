@@ -21,6 +21,7 @@ class ViewNote extends StatefulWidget {
 class _ViewNoteState extends State<ViewNote> {
 
   @override
+
   final Note note;
   _ViewNoteState(this.note);
   Widget build(BuildContext context) {

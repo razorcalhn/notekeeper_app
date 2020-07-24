@@ -50,7 +50,6 @@ class _NoteListState extends State<NoteList> {
             child: IconButton(icon: Icon(Icons.info,color: Theme.of(context).primaryColorDark),
             iconSize: 32,
             onPressed: (){
-              debugPrint('info working fine');
               Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApp()));
             },),
           )
@@ -64,7 +63,6 @@ class _NoteListState extends State<NoteList> {
         GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(new FocusNode());
-            debugPrint(noteList.length.toString() + 'lenggth');
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5,0,5,10),
@@ -86,7 +84,6 @@ class _NoteListState extends State<NoteList> {
           fontFamily: 'JosefinSans',
         ),),
         onPressed: (){
-          debugPrint('add note pressed');
           gotoNoteDescription(Note('',1,''),'Add Note');
         },
       ),
@@ -115,8 +112,7 @@ class _NoteListState extends State<NoteList> {
               color: noteColor,
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: getNoteColor(noteList[position].priority),//if not work change to this.notelist
-                  //child: Icon(getNoteIcon(noteList[position].priority),
+                  backgroundColor: getNoteColor(noteList[position].priority),
                   child: Icon(AntIcons.right_circle_outline),
                 ),
                 trailing: GestureDetector(
@@ -129,8 +125,6 @@ class _NoteListState extends State<NoteList> {
                 title: Text(noteList[position].title,style: TextStyle(fontFamily: 'JosefinSans',),),
                 subtitle: Text(noteList[position].date,style: TextStyle(fontFamily: 'JosefinSans',),),
                 onTap: () async {
-                  debugPrint('ontap pressed for notelist card');
-                  debugPrint(noteList[position].desc);
                   await gotoViewNote(noteList[position]);
                   updateListView();
 

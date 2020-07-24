@@ -1,13 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:notekeeperapp/screens/note_description.dart';
-import 'package:notekeeperapp/utils/database_helper.dart';
-import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/models/note.dart';
-import 'package:notekeeperapp/screens/note_list.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 
@@ -19,14 +13,14 @@ class ViewNote extends StatefulWidget {
 }
 
 class _ViewNoteState extends State<ViewNote> {
+  final Note note;
 
   @override
 
-  final Note note;
   _ViewNoteState(this.note);
   Widget build(BuildContext context) {
-    debugPrint(note.title);
-    debugPrint(note.desc);
+    debugPrint(note.title); //for debugging
+    debugPrint(note.desc); //for debugging
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -51,7 +45,6 @@ class _ViewNoteState extends State<ViewNote> {
                 fontFamily: 'JosefinSans',
               ),)),
               onTap: (){
-                debugPrint('go to edit');
                 _goToDesc();
               },
             ),
@@ -65,7 +58,6 @@ class _ViewNoteState extends State<ViewNote> {
               )
               ),
               onTap: (){
-                debugPrint('go to edit');
                 _goToDesc();
               },
             )

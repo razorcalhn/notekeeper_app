@@ -12,11 +12,11 @@ class ThemeChanger with ChangeNotifier{
   }
 }
 
-//shared preferences functions
+//functions for using shared preferences
 
 setThemeToSP(value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setInt('colorNum', value); // maybe await??
+  prefs.setInt('colorNum', value);
 
 }
 
@@ -24,6 +24,5 @@ setThemeToSP(value) async {
 getThemeFromSP() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int colorNumFromSP = prefs.getInt('colorNum');
-  debugPrint('theme change file sent this ---> '+ colorNumFromSP.toString() );
   return colorNumFromSP ?? 0;
 }

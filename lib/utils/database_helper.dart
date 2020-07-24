@@ -2,8 +2,10 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:notekeeperapp/models/note.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+
+
+
 class DatabaseHelper{
   static DatabaseHelper _databaseHelper ;
   static Database _database;
@@ -73,7 +75,7 @@ class DatabaseHelper{
   }
   //count
 
-  // self made count function(might br wrong)
+  // this might br wrong..check later
   Future countNote() async {
     //change to int from List<Map<S,d>>//
     Database db = await this.database;

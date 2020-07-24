@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notekeeperapp/screens/note_list.dart';
-import 'package:notekeeperapp/screens/note_description.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:notekeeperapp/screens/view_note.dart';
-import 'package:notekeeperapp/models/note.dart';
-import 'package:notekeeperapp/screens/about.dart';
 import 'package:provider/provider.dart';
 import 'package:notekeeperapp/utils/theme_changer.dart';
 
@@ -27,7 +22,6 @@ class _MyAppState extends State<MyApp> {
 
   void initState() {
     super.initState();
-    debugPrint('super init state ran');
     updateFromSP();
   }
 
@@ -37,7 +31,6 @@ class _MyAppState extends State<MyApp> {
 
     return ChangeNotifierProvider <ThemeChanger>(
       create: (_) {
-        debugPrint('create (_) ran ' + i.toString());
         return ThemeChanger(ThemeData(primarySwatch: colorList[i]));},
       child: MaterialAppWithTheme(),
     );
@@ -45,39 +38,36 @@ class _MyAppState extends State<MyApp> {
 
 
   void setNum(temp){
-    temp=temp.toString();
-    debugPrint('set num ki  value--->  ' + temp);
-    if (temp == '0'){
+    if (temp == 0){
       setState(() {
         this.i = 0;
       });
     }
 
-    if (temp == '1'){
+    if (temp == 1){
       setState(() {
         this.i = 1;
       });
     }
 
-    if (temp == '2'){
+    if (temp == 2){
       setState(() {
         this.i = 2;
       });
     }
 
-    if (temp == '3'){
+    if (temp == 3){
       setState(() {
         this.i = 3;
       });
     }
 
-    if (temp == '4'){
+    if (temp == 4){
       setState(() {
         this.i = 4;
       });
     }
 
-    debugPrint('set num  ' + temp);
   }
 
   updateFromSP() async {
@@ -99,11 +89,7 @@ class _MyAppState extends State<MyApp> {
       setNum(4);
     }
 
-    debugPrint('update from sp ' + i.toString());
   }
-
-
-
 
 }
 

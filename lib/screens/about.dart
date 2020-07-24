@@ -2,7 +2,6 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/utils/theme_changer.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,8 +9,8 @@ import 'package:expanding_bottom_bar/expanding_bottom_bar.dart';
 
 
 class AboutApp extends StatelessWidget {
-  int index=0;
-  List <Color> colorList =[Colors.blue,Colors.red,Colors.green,Colors.deepPurple,Colors.yellow];
+  final int index=0;
+  final List <Color> colorList =[Colors.blue,Colors.red,Colors.green,Colors.deepPurple,Colors.yellow];
   @override
 
   Widget build(BuildContext context) {
@@ -151,19 +150,13 @@ class AboutApp extends StatelessWidget {
             setThemeToSP(demo);
             _themeChanger.setTheme(ThemeData(primarySwatch:colorList[demo]));
             Navigator.pop(context);
-
-
-            //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyApp.s(index)), (route) => false);
-            debugPrint(demo.toString());
           }) ,
     );
   }
 }
 
 
-
-
-
+//widget for returning cards for about-app
 
 Widget buildCardWidget(Widget child) {
   return Container(

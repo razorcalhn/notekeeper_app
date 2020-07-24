@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notekeeperapp/screens/note_description.dart';
 import 'package:notekeeperapp/utils/database_helper.dart';
-import 'package:notekeeperapp/main.dart';
 import 'package:notekeeperapp/models/note.dart';
 
 class NoteDesc extends StatefulWidget {
@@ -63,7 +61,6 @@ class _NoteDescState extends State<NoteDesc> {
                     value: priorityInText(note.priority),
                     onChanged: (value){
                       setState(() {
-                        debugPrint('value selected by user is $value');
                         priorityInInt(value);
                       });
                     },
@@ -83,7 +80,6 @@ class _NoteDescState extends State<NoteDesc> {
                   ),
                     onChanged: (text){
                       note.title = titleController.text;//check this later
-                      debugPrint('note desc wala onchanged   $titleController.text');
 
                     },
                 ),
@@ -104,7 +100,6 @@ class _NoteDescState extends State<NoteDesc> {
                   ),
                   onChanged: (text){
                     note.desc=descriptionController.text;// check this later
-                    debugPrint('note desc wala onchanged   $descriptionController.text');
                   },
                 ),
               ),
@@ -123,8 +118,7 @@ class _NoteDescState extends State<NoteDesc> {
                         borderRadius: BorderRadius.circular(25)
                       ) ,
                       onPressed: (){
-                        debugPrint('save pressed');
-                        titleController.text != '' ? _save() : debugPrint('cant delete nothing');
+                        titleController.text != '' ? _save() : debugPrint('cant save nothing');
                         //_save();
                       },
                     ),
@@ -142,7 +136,6 @@ class _NoteDescState extends State<NoteDesc> {
                         ),
                         onPressed: (){
                         setState(() {
-                          debugPrint('delete pressed');
                           note.id != null ? _showAlertDialogue() : debugPrint('cant delete empty');
                         });
                       },
@@ -193,8 +186,6 @@ class _NoteDescState extends State<NoteDesc> {
 
   _save() async {
     //Navigator.pop(context,true);//check this too
-    debugPrint('_save' + note.title);
-    //debugPrint('_save' + note.desc);
     note.date = DateFormat.yMMMd().add_jm().format(DateTime.now());
     int result;
     if(note.id != null){
@@ -205,10 +196,10 @@ class _NoteDescState extends State<NoteDesc> {
     }
 
     if(result!=null){
-      debugPrint('saved succ');
+      debugPrint('saved succ');  //for debugging
     }
     else{
-      debugPrint('not savedd');
+      debugPrint('not savedd');  //for debugging
     }
     int count = 0;
     await Navigator.pop(context,true);
@@ -220,17 +211,15 @@ class _NoteDescState extends State<NoteDesc> {
     //Navigator.pop(context,true);
 
     if(note.id == null){
-      debugPrint('wrong action not empty');
       return 0;
     }
     //int result = await databaseHelper.deleteNote(note.id);
-
     //bool result = _showAlertDialogue();
     //debugPrint(result.toString());
 
 
     int deleteConf = await databaseHelper.deleteNote(note.id);
-    deleteConf != null ? debugPrint('deleted!') : debugPrint('not deleted someproblem in db');
+    deleteConf != null ? debugPrint('deleted!') : debugPrint('error, not deleted from db');
     int count = 0;
     Navigator.popUntil(context, (route) {
       return count++ == 3;
@@ -247,15 +236,12 @@ class _NoteDescState extends State<NoteDesc> {
         FlatButton(
           child: Text('YES'),
           onPressed: (){
-            debugPrint('presses yes on alertbox');
             _delete();
-            //return true;
           },
         ),
         FlatButton(
           child: Text('NO'),
           onPressed: (){
-            debugPrint('user pressed no on alertbox');
             int count = 0;
             Navigator.popUntil(context, (route) {
               return count++ == 3;

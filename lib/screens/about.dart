@@ -3,16 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:notekeeperapp/main.dart';
+import 'package:notekeeperapp/utils/theme_changer.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:expanding_bottom_bar/expanding_bottom_bar.dart';
 
 
 class AboutApp extends StatelessWidget {
   int index=0;
+  List <Color> colorList =[Colors.blue,Colors.red,Colors.green,Colors.deepPurple,Colors.yellow];
   @override
 
   Widget build(BuildContext context) {
     int index =0;
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -112,36 +116,39 @@ class AboutApp extends StatelessWidget {
           ],
         ),
       ),
-      /*
+
       bottomNavigationBar: ExpandingBottomBar(
+          navBarHeight: 90,
           items:  [
         ExpandingBottomBarItem(
-            text: '',
+            text: 'Blue',
             icon: AntIcons.font_colors,
             selectedColor: Colors.blueAccent,),
         ExpandingBottomBarItem(
-          text: 'z',
+          text: 'Red',
             icon: AntIcons.font_colors,
             selectedColor: Colors.red,),
         ExpandingBottomBarItem(
-          text: 'z',
+          text: 'Green',
             icon: AntIcons.font_colors,
             selectedColor: Colors.green,),
         ExpandingBottomBarItem(
-          text: 'z',
+          text: 'Purple',
               icon: AntIcons.font_colors,
               selectedColor: Colors.deepPurpleAccent,),
         ExpandingBottomBarItem(
-          text: 'z',
+          text: 'Yellow',
               icon: AntIcons.font_colors,
               selectedColor: Colors.yellow,)
           ],
           selectedIndex: index,
           onIndexChanged: (demo){
             index = demo;
+            _themeChanger.setTheme(ThemeData(primarySwatch:colorList[demo]));
+
             //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyApp.s(index)), (route) => false);
             debugPrint(demo.toString());
-          }) ,*/
+          }) ,
     );
   }
 }

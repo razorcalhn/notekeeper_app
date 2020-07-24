@@ -92,6 +92,9 @@ class _NoteDescState extends State<NoteDesc> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 6,
+                  maxLines: 12,
                   controller: descriptionController,
                   decoration: InputDecoration(
                       labelStyle: textStyle,
